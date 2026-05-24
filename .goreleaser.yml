@@ -1,0 +1,67 @@
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+    - go mod verify
+
+builds:
+  - id: wnp
+    main: .
+    binary: wnp
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w -X github.com/wanepia/wnp/cmd.Version={{.Version}}
+
+archives:
+  - id: wnp
+    name_template: "wnp_{{ .Os }}_{{ .Arch }}"
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^Merge"
+      - "^chore"
+  groups:
+    - title: Features
+      regexp: "^feat"
+      order: 0
+    - title: Bug fixes
+      regexp: "^fix"
+      order: 1
+    - title: Documentation
+      regexp: "^docs"
+      order: 2
+    - title: Other
+      order: 999
+
+release:
+  github:
+    owner: wanepia
+    name: wnp
+  name_template: "v{{.Version}}"
+  prerelease: auto
