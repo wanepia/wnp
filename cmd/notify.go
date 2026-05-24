@@ -215,7 +215,7 @@ var notifyChannelsAllCmd = &cobra.Command{
 
 func init() {
 	notifySetPolicyCmd.Flags().IntVar(&policyCD, "cooldown", 300, "Cooldown between alerts in seconds")
-	notifySetPolicyCmd.Flags().BoolVar(&policyRecovery, "recovery", true, "Notify on recovery")
+	notifySetPolicyCmd.Flags().BoolVar(&policyRecovery, "on-recovery", true, "Notify on recovery")
 	notifySetPolicyCmd.Flags().BoolVar(&policySilence, "silence", false, "Silence all alerts")
 	notifySetPolicyCmd.Flags().IntVar(&policyRepeat, "repeat", 0, "Repeat alert interval in seconds (0 = no repeat)")
 
