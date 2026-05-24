@@ -1,0 +1,17 @@
+# binary
+wnp
+
+# go build/test artifacts
+*.test
+*.out
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.idea/
+.vscode/
+*.swp
+*.swo
